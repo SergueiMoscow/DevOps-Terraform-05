@@ -19,3 +19,64 @@
 - **Check: CKV_TF_2: "Ensure Terraform module sources use a tag with a version number"**  
 Хотя теги Git также можно использовать, они не столь неизменяемы, как хэш, и поэтому менее предпочтительны.
 
+## [Задание 2](tasks/task2.md)
+
+S3 bucket и Yandex Service Account у меня созданы с прошлого ДЗ  
+
+![service acc](images/image01.png)  
+![bucket](images/image02.png)  
+
+Задача 4 прошлого ДЗ уже пишет tfstate в bucket, это сделал в рамках задачи 8 прошлого ДЗ, здесь продолжаю с проектом из demo
+
+Ключи пишем в файл ~/.aws/credentials  
+Запускаем, проверяем наличие объекта в bucket  
+![bucket](images/image03.png)
+
+Хотя в ACL я не конфигурил сервисный аккаунт, но файл создался. Также было и в предыдущем ДЗ.
+Попытки записать хоть какую-то конфигурацию в ~/.aws/config не увенчались успехом, он их не читает.
+
+Содержимое state файла:
+![content](images/image05.png)
+
+- В Web Console Yandex Cloud создать БД YDB (`Managed Service for YDB`)
+- Права доступа - назначить роли - дать доступ сервисному аккаунту к БД, роль `ydb.editor`  
+![access](images/image06.png)
+- `terraform apply` - всё сработало.  
+- `terraform console` - блокируем state  
+- проверяем таблицу  
+![block table](images/image07.png)
+- в другой консоли делаем `terraform destroy` и получаем ошибку блокировки  
+![state locked error](images/image08.png)
+- Выходим из консоли terraform, запускаем `terraform destroy` - всё сработало.
+- Проверяем таблицу  
+![unlocked](images/image09.png)
+
+Теперь подключим прошлое задание 4 к БД блокировки.  
+Для этого добавляем 2 строки в `main.tf` (прям копируем из этого проетка, т.к. будем пробовать с той же таблицей)  
+![changes in previous task 4](images/image11.png)  
+добавленные строки 11 и 14
+
+Там я ещё не знал про файл ~/.aws/credentials, ключи находятся в `backend.tfvars`, поэтому запускаем
+
+`terraform init -reconfigure -backend-config=backend.tfvars`
+
+Проверяем записи в таблице:
+![db records](images/image10.png)
+
+Как видим, создалась новая запись с ключом из `backend.tfvars` в этом случае, или из значения terraform.bakend.key если он прописан на своём месте.
+
+[Коммитим](https://github.com/SergueiMoscow/DevOps-Terraform-04/commit/d5df3b3fdd1c38ca9c6276b20b8bb3f2cb605775) прошлое задание.
+
+Блокируем стейт командой `terraform console`, аналогичную команду запускаем в другом терминале, получаем ошибку  
+![block error](images/image12.png)
+
+Для разблокировки берём значение из БД  
+[lock id](images/image13.png)  
+
+Запускаем  
+`terraform force-unlock 5672a368-d6e4-fb75-1e71-8654610e4448`
+`terraform console`  
+![unlock](images/image14.png)
+
+При выходе в 1м терминале получаем ошибку  
+![console error](images/image15.png)
