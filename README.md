@@ -71,7 +71,7 @@ S3 bucket и Yandex Service Account у меня созданы с прошлог
 ![block error](images/image12.png)
 
 Для разблокировки берём значение из БД  
-[lock id](images/image13.png)  
+![lock id](images/image13.png)  
 
 Запускаем  
 `terraform force-unlock 5672a368-d6e4-fb75-1e71-8654610e4448`
