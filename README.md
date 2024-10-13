@@ -99,3 +99,10 @@ S3 bucket и Yandex Service Account у меня созданы с прошлог
 
 Запускаем с невалидными значениями  
 ![invalid values](images/image18.png)
+
+## [Задание 5](tasks/task5.md)
+Запуск с невалидной строкой  
+![string not valid](images/image20.png)
+
+Запуск с невалидным объектом  
+![object not valid](images/image19.png)
