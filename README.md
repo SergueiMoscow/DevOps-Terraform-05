@@ -83,7 +83,7 @@ S3 bucket и Yandex Service Account у меня созданы с прошлог
 
 ## [Задание 3](tasks/task3.md)
 
-Проверяем все проекты прошлого ДЗ командами:
+Проверяем все проекты прошлого ДЗ командами:  
 `tflint`  
 `checkov -d ./`  
 Исправляем ошибки  
@@ -91,3 +91,11 @@ S3 bucket и Yandex Service Account у меня созданы с прошлог
 
 [Pull request](https://github.com/SergueiMoscow/DevOps-Terraform-04/pull/1)
 
+## [Задание 4](tasks/task4.md)
+
+Создаём [файл с переменными](src/validation/variables.tf)  
+Запускаем `terraform console` с валидными значениями  
+![valid values](images/image17.png)
+
+Запускаем с невалидными значениями  
+![invalid values](images/image18.png)
