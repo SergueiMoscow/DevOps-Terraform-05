@@ -80,3 +80,14 @@ S3 bucket и Yandex Service Account у меня созданы с прошлог
 
 При выходе в 1м терминале получаем ошибку  
 ![console error](images/image15.png)
+
+## [Задание 3](tasks/task3.md)
+
+Проверяем все проекты прошлого ДЗ командами:
+`tflint`  
+`checkov -d ./`  
+Исправляем ошибки  
+[Commit](https://github.com/SergueiMoscow/DevOps-Terraform-04/commit/40a36e48272e891f42bdc8a5e28c4981b039a89e)
+
+[Pull request](https://github.com/SergueiMoscow/DevOps-Terraform-04/pull/1)
+
