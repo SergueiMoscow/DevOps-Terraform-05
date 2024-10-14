@@ -109,3 +109,6 @@ S3 bucket и Yandex Service Account у меня созданы с прошлог
 
 ## [Задание 7](tasks/task7.md)
 
+С ключами роли `"editor"` не сработало создание bucket, не стал создавать новые ключи роли `"admin"` использовал уже имеющийся токен. С ним сработало всё. Пока как root (не в качестве модуля)
+[Commit](https://github.com/SergueiMoscow/DevOps-Terraform-05/commit/1a6d9b2f63dbd8474fbe67b10b25c967fb8a5cd2)
+

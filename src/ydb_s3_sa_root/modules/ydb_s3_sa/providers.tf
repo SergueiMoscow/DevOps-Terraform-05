@@ -9,7 +9,4 @@ terraform {
   }
 }
 
-provider {
-  service_account_key_file = file("~/.yc_authorized_key.json")
-}
 

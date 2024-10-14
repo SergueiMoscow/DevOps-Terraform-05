@@ -1,8 +1,4 @@
 ###cloud vars
-variable "yc_token" {
-  type = string
-}
-
 variable "cloud_id" {
   type        = string
   description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
@@ -20,13 +16,13 @@ variable "default_zone" {
 }
 
 variable "bucket_name" {
-  type = string
+  type        = string
 }
 
 variable "db_name" {
-  type = string
+  type        = string
 }
 
 variable "network_id" {
-  type = string
+  type        = string
 }
