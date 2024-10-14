@@ -106,3 +106,6 @@ S3 bucket и Yandex Service Account у меня созданы с прошлог
 
 Запуск с невалидным объектом  
 ![object not valid](images/image19.png)
+
+## [Задание 7](tasks/task7.md)
+

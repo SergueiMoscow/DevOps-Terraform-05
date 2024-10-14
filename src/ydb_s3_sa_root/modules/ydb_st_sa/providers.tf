@@ -13,6 +13,3 @@ provider {
   service_account_key_file = file("~/.yc_authorized_key.json")
 }
 
-data "yandex_organization_organization" "this" {}
-
-data "yandex_cloud_id" "example" {}
