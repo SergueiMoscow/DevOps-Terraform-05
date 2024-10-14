@@ -1,6 +1,7 @@
 # НЕ ЗАКОНЧЕНО!!!
 # service account
 resource "yandex_iam_service_account" "this" {
+  folder_id   = var.folder_id
   name        = "sa-for-terraform"
   description = "terraform managed"
 }
@@ -14,8 +15,9 @@ resource "yandex_iam_service_account_static_access_key" "this" {
 # bucket
 # https://terraform-provider.yandexcloud.net/Resources/storage_bucket
 resource "yandex_storage_bucket" "this" {
-  bucket        = var.bucket_name
-  acl         = "private"
+  bucket     = var.bucket_name
+  access_key = yandex_iam_service_account_static_access_key.this.access_key
+  secret_key = yandex_iam_service_account_static_access_key.this.secret_key
 }
 
 # YDB
@@ -35,20 +37,21 @@ resource "yandex_ydb_database_serverless" "this" {
   # }
 }
 
+# Grant permissions
 # https://yandex.cloud/ru/docs/iam/operations/sa/assign-role-for-sa
-resource "yandex_resourcemanager_folder_iam_member" "editor-account-iam" {
+resource "yandex_resourcemanager_folder_iam_member" "admin-account-iam" {
   folder_id   = var.folder_id
-  role        = "editor"
+  role        = "admin"
   member      = "serviceAccount:${yandex_iam_service_account.this.id}"
 }
 
 
-# Привязка к политике
-# https://terraform-provider.yandexcloud.net/Resources/ydb_database_iam_binding
-resource "yandex_ydb_database_iam_binding" "this" {
-  database_id = yandex_ydb_database_serverless.this.id
-  role = "ydb.editor"
-  members = [
-    "serviceAccount:${yandex_iam_service_account.this.id}"
-  ]
-}
+# # Привязка к политике
+# # https://terraform-provider.yandexcloud.net/Resources/ydb_database_iam_binding
+# resource "yandex_ydb_database_iam_binding" "this" {
+#   database_id = yandex_ydb_database_serverless.this.id
+#   role = "admin"
+#   members = [
+#     "serviceAccount:${yandex_iam_service_account.this.id}"
+#   ]
+# }
